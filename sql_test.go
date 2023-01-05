@@ -2,6 +2,7 @@ package belajar_golang_database
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"testing"
 	"time"
@@ -48,17 +49,19 @@ func TestQuerySqlComplex(t *testing.T) {
 	defer db.Close()
 
 	ctx := context.Background()
-	sql := "SELECT id, name, email, balance, rating, brith_date, married, created_at FROM customer"
-	rows, err := db.QueryContext(ctx, sql)
+	query := "SELECT id, name, email, balance, rating, brith_date, married, created_at FROM customer"
+	rows, err := db.QueryContext(ctx, query)
 	if err != nil {
 		panic(err)
 	}
 
 	for rows.Next() {
-		var id, name, email string
+		var id, name string
+		var email sql.NullString
 		var balance int32
 		var rating float32
-		var birthDate, createAt time.Time
+		var birthDate sql.NullTime
+		var createAt time.Time
 		var married bool
 		err := rows.Scan(&id, &name, &email, &balance, &rating, &birthDate, &married, &createAt)
 		if err != nil {
