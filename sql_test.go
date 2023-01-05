@@ -71,10 +71,14 @@ func TestQuerySqlComplex(t *testing.T) {
 		fmt.Println("=======================")
 		fmt.Println("id:", id)
 		fmt.Println("name:", name)
-		fmt.Println("email:", email)
+		if email.Valid {
+			fmt.Println("email:", email.String)
+		}
 		fmt.Println("balance:", balance)
 		fmt.Println("rating:", rating)
-		fmt.Println("birth date:", birthDate)
+		if birthDate.Valid {
+			fmt.Println("birth date:", birthDate.Time)
+		}
 		fmt.Println("married:", married)
 		fmt.Println("create at:", createAt)
 	}
